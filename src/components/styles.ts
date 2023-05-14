@@ -18,7 +18,7 @@ export const TitleText = styled.div(() => [
 ]);
 
 export const Container = styled.div(() => [
-    tw`h-2/5 w-full border border-gray-300 rounded-lg flex flex-col`,
+    tw`h-3/5 w-full border border-gray-300 rounded-lg flex flex-col`,
 ]);
 
 export const Button = styled.div(() => [
@@ -30,7 +30,7 @@ export const HeaderText = styled.div(() => [
 ]);
 
 export const FormulaContainer = styled.div(() => [
-    tw`h-4/6 bg-gray-100 flex justify-center items-center p-4`,
+    tw`h-4/6 bg-gray-100 flex flex-col justify-center items-center p-4 `,
 ]);
 
 export const RightContainer = styled.div(() => [
