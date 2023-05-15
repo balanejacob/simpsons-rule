@@ -2,12 +2,14 @@ import React, { useState } from "react";
 
 import * as S from "./components/styles";
 import FormulaContainer from "./components/formula";
+import Bound from "./components/bound";
+import MainComponent from "./components/main-component";
 
 export default function App(): JSX.Element {
-  const [isAnswerToggle, setAnswerToggle] = useState(false);
+  const [isSolutionToggle, setSolutionToggle] = useState(false);
 
   const handleToggleSolution = () => {
-    setAnswerToggle(!isAnswerToggle);
+    setSolutionToggle(true);
   };
 
   return (
@@ -17,49 +19,30 @@ export default function App(): JSX.Element {
         <S.Container>
           <S.HeaderText>Input Data</S.HeaderText>
           <S.FormulaContainer>
-            <div className="w-full h-10">
-              <input
-                className="w-2/12 h-full text-center border border-gray-500 rounded-md"
-                placeholder="b"
-              />
-            </div>
+            <Bound label="b" />
             <FormulaContainer />
-            <div className="w-full h-10">
-              <input
-                className="w-2/12 h-full text-center border border-gray-500 rounded-md"
-                placeholder="a"
-              />
-            </div>
+            <Bound label="a" />
             <div className="w-full h-10 mt-6 flex items-center gap-x-2 justify-center">
-              <p className="font-semibold">n = </p>
+              <p className="font-semibold select-none">n = </p>
               <input
                 className="w-2/12 h-full text-center border border-gray-500 rounded-md"
                 placeholder="n"
               />
             </div>
           </S.FormulaContainer>
-          <div className="h-1/6 flex justify-center items-center select-none">
-            <S.Button>Solve</S.Button>
+          <div className="h-1/6 flex justify-center items-center select-none p-4 ">
+            <S.Button onClick={handleToggleSolution}>Calculate</S.Button>
           </div>
         </S.Container>
       </S.LeftContainer>
       <S.RightContainer>
         <S.AnswerContainer>
-          <div
-            className="text-sm font-semibold select-none"
-            onClick={handleToggleSolution}
-          >
-            Answer
+          <div className="text-sm select-none items-center flex h-12 gap-x-6">
+            <p className="font-bold">Answer :</p>
+            <p className="text-2xl select-text mb-2">0.123456789</p>
           </div>
         </S.AnswerContainer>
-        <S.SolutionContainer isActive={isAnswerToggle}>
-          <div
-            className="text-sm font-semibold select-none"
-            onClick={handleToggleSolution}
-          >
-            Show Solution
-          </div>
-        </S.SolutionContainer>
+        <MainComponent isActive={isSolutionToggle} />
       </S.RightContainer>
     </S.App>
   );

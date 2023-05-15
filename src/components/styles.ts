@@ -22,7 +22,7 @@ export const Container = styled.div(() => [
 ]);
 
 export const Button = styled.div(() => [
-    tw`bg-black text-white cursor-pointer py-2 px-6 rounded-sm text-sm font-bold`,
+    tw`bg-black text-white cursor-pointer p-4 text-sm font-bold w-full flex justify-center rounded-lg`,
 ]);
 
 export const HeaderText = styled.div(() => [
@@ -41,7 +41,16 @@ export const AnswerContainer = styled.div(() => [
     tw`w-3/4 bg-white p-10 drop-shadow-md`,
 ]);
 
-export const SolutionContainer = styled.div<ActiveComponent>((props) => [
-    tw`w-3/4 bg-white transition duration-500 ease-in-out p-10 cursor-pointer drop-shadow-md`,
-    props.isActive &&  tw`h-full`
+export const SolutionContainer = styled.div(() => [
+    tw`w-3/4 bg-white transition duration-500 ease-in-out drop-shadow-md flex flex-col h-full`
 ]);
+
+export const HiddenContainer = styled.div<ActiveComponent>((props) => [
+    tw`h-full w-full`,
+    props.isActive? tw`block`: tw`hidden`
+]);
+
+export const SectionContainer = styled.div(() => [
+    tw`p-6 w-full flex flex-col gap-y-4 text-sm items-center`
+]);
+
