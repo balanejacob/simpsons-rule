@@ -4,11 +4,11 @@ import * as S from "./styles";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import SectionLabel from "./section-label";
 
-type MainComponentPropsType = {
+type SolutionPanelPropsType = {
   isActive: boolean;
 };
 
-export default function MainComponent(props: MainComponentPropsType) {
+export default function SolutionPanel(props: SolutionPanelPropsType) {
   const { isActive } = props;
   const config = {
     loader: { load: ["input/asciimath"] },
@@ -16,7 +16,7 @@ export default function MainComponent(props: MainComponentPropsType) {
 
   return (
     <S.SolutionContainer>
-      <div className="font-bold select-none flex items-center p-10">
+      {/* <div className="font-bold select-none flex items-center p-10 shadow-md">
         <p className="text-sm ">Solution :</p>
       </div>
       <div className="font-semibold select-none h-full overflow-auto px-10 mb-10">
@@ -43,7 +43,7 @@ export default function MainComponent(props: MainComponentPropsType) {
             <SectionLabel label="Solve for " />
           </S.SectionContainer>
         </S.HiddenContainer>
-      </div>
+      </div> */}
     </S.SolutionContainer>
   );
 }
