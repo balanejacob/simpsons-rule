@@ -1,5 +1,4 @@
 import integral from "../images/integral.png";
-import Bound from "./bound";
 
 type FormulaContainerPropsType = {
   onConstantChange: (event: any) => void;
