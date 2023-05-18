@@ -128,7 +128,7 @@ export default function IntroductionPanel(props: IntroductionPanelPropsType) {
             </p>
           </div>
         </div>
-        <div className=" border-l  w-2/12 h-[85vh]"></div>
+        <div className="  w-2/12 h-[85vh]"></div>
       </div>
     </div>
   );
