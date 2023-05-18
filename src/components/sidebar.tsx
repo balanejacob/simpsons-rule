@@ -166,7 +166,7 @@ export default function Sidebar(props: SidebarPropsType) {
             <p className="font-semibold select-none font-noto">error = </p>
             <input
               className={`w-5/12 h-full text-center border font-noto rounded-md focus:outline-0 placeholder:font-noto ${
-                !isError && "border-color9"
+                !isError && "border-color8"
               }`}
               placeholder="0.001"
               onChange={handleErrorChange}

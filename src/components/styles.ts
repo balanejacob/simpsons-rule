@@ -18,11 +18,11 @@ export const TitleText = styled.div(() => [
 ]);
 
 export const Container = styled.div(() => [
-    tw`w-full border border-gray-300 rounded-lg flex flex-col h-2/5`,
+    tw`w-full border border-gray-300 rounded-lg flex flex-col h-2/5 h-max`,
 ]);
 
 export const Button = styled.div<ActiveComponent>((props) => [
-    tw`text-white p-2 text-sm font-bold w-full flex justify-center rounded-lg transition-all duration-200 ease-in-out`,
+    tw`text-white p-2 text-sm font-bold w-full flex justify-center rounded-lg transition-all duration-200 ease-in-out mx-4`,
     props.isActive ? tw`bg-color6 cursor-pointer hover:bg-color7`:tw`bg-color5 cursor-not-allowed`
 ]);
 
