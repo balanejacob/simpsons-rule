@@ -9,26 +9,23 @@ import { BiCalculator } from "react-icons/bi";
 
 type SidebarPropsType = {
   handlePanelToggle: (value: string) => void;
+  isActive: string;
 };
 
 export default function Sidebar(props: SidebarPropsType) {
-  const { handlePanelToggle } = props;
-  const [isSideButtonActive, setSideButtonActive] = useState("1");
-  const [isFunction, setFunction] = useState(false);
-  const [isSlice, setSlice] = useState(false);
+  const { handlePanelToggle, isActive } = props;
+  const [isConstant, setConstant] = useState(false);
+  const [isExponent, setExponent] = useState(false);
+
   const [isLowerBound, setLowerBound] = useState(false);
   const [isUpperBound, setUpperBound] = useState(false);
-
-  function handleSideButtonActive(value: string): void {
-    setSideButtonActive(value);
-    handlePanelToggle(isSideButtonActive);
-  }
+  const [isSlice, setSlice] = useState(false);
+  const [isError, setError] = useState(false);
 
   function handleUpperBoundChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    console.log(event.target.value);
     setUpperBound(
       event.target.value === "" || isNaN(Number(event.target.value))
         ? false
@@ -47,6 +44,28 @@ export default function Sidebar(props: SidebarPropsType) {
     );
   }
 
+  function handleConstantChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    event.preventDefault();
+    setConstant(
+      event.target.value === "" || isNaN(Number(event.target.value))
+        ? false
+        : true
+    );
+  }
+
+  function handleExponentChange(
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void {
+    event.preventDefault();
+    setExponent(
+      event.target.value === "" || isNaN(Number(event.target.value))
+        ? false
+        : true
+    );
+  }
+
   function handleSliceChange(event: React.ChangeEvent<HTMLInputElement>): void {
     event.preventDefault();
     setSlice(
@@ -56,15 +75,24 @@ export default function Sidebar(props: SidebarPropsType) {
     );
   }
 
-  function handleFunctionChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
+  function handleErrorChange(event: React.ChangeEvent<HTMLInputElement>): void {
     event.preventDefault();
-    setFunction(event.target.value === "" ? false : true);
+    setError(
+      event.target.value === "" || isNaN(Number(event.target.value))
+        ? false
+        : true
+    );
   }
 
   function allAreTrue() {
-    const value = [isFunction, isSlice, isUpperBound, isLowerBound];
+    const value = [
+      isConstant,
+      isExponent,
+      isSlice,
+      isError,
+      isUpperBound,
+      isLowerBound,
+    ];
     return value.every((element) => element === true);
   }
 
@@ -77,30 +105,30 @@ export default function Sidebar(props: SidebarPropsType) {
       <div className="flex flex-col gap-y-2">
         <SidebarButton
           label="Introduction"
-          isActive={isSideButtonActive === "1"}
+          isActive={isActive === "1"}
           icon="BiBookAlt"
-          onClick={() => handleSideButtonActive("1")}
+          onClick={() => handlePanelToggle("1")}
           key="1"
         />
         <SidebarButton
           label="Program"
-          isActive={isSideButtonActive === "2"}
+          isActive={isActive === "2"}
           icon="RiComputerLine"
-          onClick={() => handleSideButtonActive("2")}
+          onClick={() => handlePanelToggle("2")}
           key="2"
         />
         <SidebarButton
           label="Specification"
-          isActive={isSideButtonActive === "3"}
+          isActive={isActive === "3"}
           icon="HiOutlineMagnifyingGlass"
-          onClick={() => handleSideButtonActive("3")}
+          onClick={() => handlePanelToggle("3")}
           key="3"
         />
         <SidebarButton
           label="Conclusion"
-          isActive={isSideButtonActive === "4"}
+          isActive={isActive === "4"}
           icon="MdOutlineSummarize"
-          onClick={() => handleSideButtonActive("4")}
+          onClick={() => handlePanelToggle("4")}
           key="4"
         />
       </div>
@@ -114,29 +142,41 @@ export default function Sidebar(props: SidebarPropsType) {
             hasValue={isUpperBound}
           />
           <FormulaContainer
-            onChange={handleFunctionChange}
-            hasValue={isFunction}
+            onConstantChange={handleConstantChange}
+            onExponentChange={handleExponentChange}
+            hasConstantValue={isConstant}
+            hasExponentValue={isExponent}
           />
           <Bound
             label="a"
             onChange={handleLowerBoundChange}
             hasValue={isLowerBound}
           />
-          <div className="w-full h-10 mt-6 flex items-center gap-x-2 justify-center">
+          <div className="w-full h-10 mt-6 flex items-center gap-x-2 justify-end">
             <p className="font-semibold select-none font-noto">n = </p>
             <input
-              className={`w-3/12 h-full text-center border font-noto rounded-md focus:outline-0 placeholder:font-noto ${
-                !isSlice && "border-color8"
+              className={`w-5/12 h-full text-center border font-noto rounded-md focus:outline-0 placeholder:font-noto ${
+                !isSlice && "border-color9"
               }`}
               placeholder="n"
               onChange={handleSliceChange}
             />
           </div>
+          <div className="w-full h-10 mt-2 flex items-center gap-x-2  justify-end">
+            <p className="font-semibold select-none font-noto">error = </p>
+            <input
+              className={`w-5/12 h-full text-center border font-noto rounded-md focus:outline-0 placeholder:font-noto ${
+                !isError && "border-color9"
+              }`}
+              placeholder="0.001"
+              onChange={handleErrorChange}
+            />
+          </div>
         </S.FormulaContainer>
-        <div className="h-1/6 flex justify-center items-center select-none p-4 ">
+        <div className="h-1/6 flex justify-center items-center select-none py-4 mt-4 ">
           <S.Button
             isActive={allAreTrue()}
-            onClick={() => handlePanelToggle(isSideButtonActive)}
+            onClick={() => handlePanelToggle("5")}
           >
             Calculate
           </S.Button>

@@ -13,7 +13,7 @@ export default function Bound(props: BoundPropsType): JSX.Element {
     <div className="w-full h-10 ">
       <input
         className={`w-3/12 h-full text-center rounded-lg border focus:outline-0 placeholder:font-noto ${
-          !hasValue && "border-color8"
+          !hasValue && "border-color9"
         }`}
         placeholder={label}
         onChange={onChange}

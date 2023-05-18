@@ -6,7 +6,7 @@ type ActiveComponent = {
 }
 
 export const App = styled.div(() => [
-    tw`h-screen w-full bg-color1 flex p-4 gap-x-4`,
+    tw`h-screen w-full bg-color2 flex p-4 gap-x-4`,
 ]);
 
 export const LeftContainer = styled.div(() => [
@@ -31,7 +31,7 @@ export const HeaderText = styled.div(() => [
 ]);
 
 export const FormulaContainer = styled.div(() => [
-    tw`h-4/6 flex flex-col justify-center items-center p-4 `,
+    tw`h-5/6 flex flex-col justify-center items-center p-4 `,
 ]);
 
 export const RightContainer = styled.div(() => [
@@ -59,4 +59,3 @@ export const SidebarButton = styled.div<ActiveComponent>((props) => [
     tw`h-10 border border-white flex items-center text-sm font-semibold gap-x-3 cursor-pointer font-noto px-6 rounded-md transition-all duration-200`,
     props.isActive ? tw`bg-color8 text-color1`:tw`hover:border-gray-200 hover:bg-color1`
 ]);
-

@@ -12,6 +12,7 @@ module.exports = {
         color6: "#16A34A",
         color7: "#15803D",
         color8: "#DB2777",
+        color9: "#FF80B9",
       },
       fontFamily: {
         montserrat: "Montserrat",
