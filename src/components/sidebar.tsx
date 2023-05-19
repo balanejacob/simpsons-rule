@@ -10,90 +10,95 @@ import { BiCalculator } from "react-icons/bi";
 type SidebarPropsType = {
   handlePanelToggle: (value: string) => void;
   isActive: string;
+  handleValues: (value: number[]) => void;
 };
 
 export default function Sidebar(props: SidebarPropsType) {
-  const { handlePanelToggle, isActive } = props;
+  const { handlePanelToggle, isActive, handleValues } = props;
   const [isConstant, setConstant] = useState(false);
   const [isExponent, setExponent] = useState(false);
-
   const [isLowerBound, setLowerBound] = useState(false);
   const [isUpperBound, setUpperBound] = useState(false);
-  const [isSlice, setSlice] = useState(false);
   const [isError, setError] = useState(false);
+
+  const [isConstantFinal, setConstantFinal] = useState<number>(1);
+  const [isExponentFinal, setExponentFinal] = useState<number>(1);
+  const [isLowerBoundFinal, setLowerBoundFinal] = useState<number>(1);
+  const [isUpperBoundFinal, setUpperBoundFinal] = useState<number>(2);
+  const [isErrorFinal, setErrorFinal] = useState<number>(0.0001);
 
   function handleUpperBoundChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    setUpperBound(
-      event.target.value === "" || isNaN(Number(event.target.value))
-        ? false
-        : true
-    );
+    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+      setUpperBound(false);
+    } else {
+      setUpperBound(true);
+      setUpperBoundFinal(Number(event.target.value));
+    }
   }
 
   function handleLowerBoundChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    setLowerBound(
-      event.target.value === "" || isNaN(Number(event.target.value))
-        ? false
-        : true
-    );
+    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+      setLowerBound(false);
+    } else {
+      setLowerBound(true);
+      setLowerBoundFinal(Number(event.target.value));
+    }
   }
 
   function handleConstantChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    setConstant(
-      event.target.value === "" || isNaN(Number(event.target.value))
-        ? false
-        : true
-    );
+    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+      setConstant(false);
+    } else {
+      setConstant(true);
+      setConstantFinal(Number(event.target.value));
+    }
   }
 
   function handleExponentChange(
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    setExponent(
-      event.target.value === "" || isNaN(Number(event.target.value))
-        ? false
-        : true
-    );
-  }
-
-  function handleSliceChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    event.preventDefault();
-    setSlice(
-      event.target.value === "" || isNaN(Number(event.target.value))
-        ? false
-        : true
-    );
+    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+      setExponent(false);
+    } else {
+      setExponent(true);
+      setExponentFinal(Number(event.target.value));
+    }
   }
 
   function handleErrorChange(event: React.ChangeEvent<HTMLInputElement>): void {
     event.preventDefault();
-    setError(
-      event.target.value === "" || isNaN(Number(event.target.value))
-        ? false
-        : true
-    );
+    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+      setError(false);
+    } else {
+      setError(true);
+      setErrorFinal(Number(event.target.value));
+    }
   }
 
   function allAreTrue() {
-    const value = [
-      isConstant,
-      isExponent,
-      isSlice,
-      isError,
-      isUpperBound,
-      isLowerBound,
-    ];
+    const value = [isConstant, isExponent, isError, isUpperBound, isLowerBound];
     return value.every((element) => element === true);
+  }
+
+  function handleSetValues() {
+    allAreTrue() &&
+      handleValues([
+        isLowerBoundFinal,
+        isUpperBoundFinal,
+        isConstantFinal,
+        isExponentFinal,
+        isErrorFinal,
+      ]);
   }
 
   return (
@@ -133,36 +138,33 @@ export default function Sidebar(props: SidebarPropsType) {
         />
       </div>
       <hr />
-      <S.Container>
-        <S.HeaderText>Input Data</S.HeaderText>
+      <S.Container isActive={isActive === "2"}>
+        <S.HeaderText isActive={isActive === "2"}>Input Data</S.HeaderText>
         <S.FormulaContainer>
           <Bound
             label="b"
             onChange={handleUpperBoundChange}
             hasValue={isUpperBound}
+            isActive={isActive === "2"}
           />
           <FormulaContainer
             onConstantChange={handleConstantChange}
             onExponentChange={handleExponentChange}
             hasConstantValue={isConstant}
             hasExponentValue={isExponent}
+            isActive={isActive === "2"}
           />
           <Bound
             label="a"
             onChange={handleLowerBoundChange}
             hasValue={isLowerBound}
+            isActive={isActive === "2"}
           />
-          <div className="w-full h-10 mt-6 flex items-center gap-x-2 justify-end">
-            <p className="font-semibold select-none font-noto">n = </p>
-            <input
-              className={`w-5/12 h-full text-center border font-noto rounded-md focus:outline-0 placeholder:font-noto ${
-                !isSlice && "border-color9"
-              }`}
-              placeholder="n"
-              onChange={handleSliceChange}
-            />
-          </div>
-          <div className="w-full h-10 mt-2 flex items-center gap-x-2  justify-end">
+          <div
+            className={`w-full h-10 mt-2 items-center gap-x-2  justify-center ${
+              isActive === "2" ? "flex" : "hidden"
+            }`}
+          >
             <p className="font-semibold select-none font-noto">error = </p>
             <input
               className={`w-5/12 h-full text-center border font-noto rounded-md focus:outline-0 placeholder:font-noto ${
@@ -173,11 +175,12 @@ export default function Sidebar(props: SidebarPropsType) {
             />
           </div>
         </S.FormulaContainer>
-        <div className="h-1/6 flex justify-center items-center select-none py-4 mt-4 ">
-          <S.Button
-            isActive={allAreTrue()}
-            onClick={() => handlePanelToggle("5")}
-          >
+        <div
+          className={`h-1/6 justify-center items-center select-none py-4 ${
+            isActive === "2" ? "flex" : "hidden"
+          }`}
+        >
+          <S.Button isActive={allAreTrue()} onClick={handleSetValues}>
             Calculate
           </S.Button>
         </div>

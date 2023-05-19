@@ -75,15 +75,8 @@ export default function IntroductionPanel(props: IntroductionPanelPropsType) {
                   Reduced computational effort:{" "}
                 </span>
                 A program or software can automate the process of dividing the
-                interval of integration into subintervals, evaluating the
-                function at the points of subdivision, and calculating the area
-                under the graph of the function.
-              </li>
-              <li>
-                <span className="font-semibold">Improved visualization: </span>A
-                program or software can generate graphs of the function and the
-                area under the graph, which can help to verify the accuracy of
-                the approximation.
+                interval of integration into subintervals and evaluating the
+                function at the points of subdivision.
               </li>
             </ul>
             <p>
