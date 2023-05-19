@@ -20,7 +20,12 @@ export default function App(): JSX.Element {
   const [isLowerbound, setLowerbound] = useState<number[]>([0, 0, 0, 0]);
 
   const [isMax, setMax] = useState<number>(0);
-  const [isNumber, setNumber] = useState<number>(0);
+  const [isNumber, setNumber] = useState<number[]>([0, 0, 0]);
+  const [isDelta, setDelta] = useState<number>(0);
+  const [isEndValues, setEndValues] = useState<number[]>([]);
+  const [isOddValue, setOddValue] = useState<number>(0);
+  const [isEvenValue, setEvenValue] = useState<number>(0);
+  const [isAnswer, setAnswer] = useState<number>(0);
 
   const handlePanelToggle = (value: string): void => {
     setPanelToggle(value);
@@ -70,19 +75,79 @@ export default function App(): JSX.Element {
     setLowerbound(arrayLower);
   };
 
-  function fourthRoot() {
-    return 1;
-  }
-
   function findN() {
     let max = isMax;
     let lower = isValue[0];
     let upper = isValue[1];
     let error = isValue[4];
     let answer = 0;
+    let n_rounded = 0;
 
     answer = Math.pow((max * Math.pow(upper - lower, 5)) / 180 / error, 1 / 4);
-    setNumber(answer);
+    n_rounded = Math.round(answer);
+    setNumber([
+      answer,
+      n_rounded,
+      n_rounded % 2 === 0 ? n_rounded : n_rounded + 1,
+    ]);
+  }
+
+  function findDelta() {
+    let lower = isValue[0];
+    let upper = isValue[1];
+    let n = isNumber[2];
+    setDelta((upper - lower) / n);
+  }
+
+  function findInitialValues() {
+    let num = isValue[0];
+    let init_array = [];
+    let max = isNumber[2];
+    let delta = isDelta;
+    let ends = [isValue[0], isValue[1]];
+    let oddArr = [];
+    let evenArr = [];
+    let total = 0;
+
+    for (let n = 0; n < max - 1; n++) {
+      num += delta;
+      init_array.push(num);
+    }
+
+    for (let n = 0; n < max - 1; n++) {
+      if (n % 2 !== 0) evenArr.push(init_array[n]);
+      else oddArr.push(init_array[n]);
+    }
+
+    for (let n = 0; n < oddArr.length; n++) {
+      oddArr[n] *= 4;
+    }
+
+    for (let n = 0; n < evenArr.length; n++) {
+      evenArr[n] *= 2;
+    }
+
+    for (let n = 0; n < oddArr.length; n++) {
+      total += oddArr[n];
+    }
+
+    setOddValue(total);
+
+    total = 0;
+
+    for (let n = 0; n < evenArr.length; n++) {
+      total += evenArr[n];
+    }
+
+    setEvenValue(total);
+    setEndValues(ends);
+  }
+
+  function findAnswer() {
+    setAnswer(
+      (isDelta / 3) *
+        (isEndValues[0] + isEndValues[1] + isOddValue + isEvenValue)
+    );
   }
 
   useEffect(() => {
@@ -96,7 +161,19 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     findN();
-  }, [isMax]);
+  }, [isMax, isValue]);
+
+  useEffect(() => {
+    findDelta();
+  }, [isNumber]);
+
+  useEffect(() => {
+    findInitialValues();
+  }, [isDelta, isValue]);
+
+  useEffect(() => {
+    findAnswer();
+  }, [isEndValues, isEvenValue, isOddValue]);
 
   return (
     <S.App>
@@ -114,6 +191,11 @@ export default function App(): JSX.Element {
         upper_array={isUpperbound}
         max={isMax}
         n={isNumber}
+        delta={isDelta}
+        odd_values={isOddValue}
+        even_values={isEvenValue}
+        end_values={isEndValues}
+        answer={isAnswer}
       />
     </S.App>
   );

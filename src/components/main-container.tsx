@@ -14,7 +14,12 @@ type MainContainerPropsType = {
   lower_array: number[] | undefined;
   upper_array: number[] | undefined;
   max: number;
-  n: number;
+  n: number[];
+  delta: number;
+  odd_values: number;
+  even_values: number;
+  end_values: number[];
+  answer: number;
 };
 
 export default function MainContainer(props: MainContainerPropsType) {
@@ -27,6 +32,11 @@ export default function MainContainer(props: MainContainerPropsType) {
     upper_array,
     max,
     n,
+    delta,
+    odd_values,
+    even_values,
+    end_values,
+    answer,
   } = props;
   return (
     <S.RightContainer>
@@ -40,6 +50,11 @@ export default function MainContainer(props: MainContainerPropsType) {
         upper_array={upper_array}
         max={max}
         n={n}
+        delta={delta}
+        odd_values={odd_values}
+        even_values={even_values}
+        end_values={end_values}
+        answer={answer}
       />
       <SpecificationPanel isActive={isActive === "3"} />
       <ConclusionPanel isActive={isActive === "4"} />

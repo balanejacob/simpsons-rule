@@ -10,7 +10,12 @@ type ProgramPanelPropsType = {
   lower_array: number[] | undefined;
   upper_array: number[] | undefined;
   max: number;
-  n: number;
+  n: number[];
+  delta: number;
+  odd_values: number;
+  even_values: number;
+  end_values: number[];
+  answer: number;
 };
 export default function ProgramPanel(props: ProgramPanelPropsType) {
   const {
@@ -22,6 +27,11 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
     upper_array = [],
     max,
     n,
+    delta,
+    odd_values,
+    even_values,
+    end_values,
+    answer,
   } = props;
 
   const lower = values[0];
@@ -47,19 +57,21 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
           <div className="border-t h-[85vh] w-full px-20 pt-20  font-noto text-justify flex flex-col">
             <S.SectionHeading className=" h-[10vh]">
               <p className="font-semibold ">Answer :</p>
-              <p className="">0.00001234</p>
+              <p className="">{answer}</p>
             </S.SectionHeading>
             <S.SectionHeading className=" h-[10vh] mt-7">
               <p className="font-semibold">Solution :</p>
             </S.SectionHeading>
-            {/* <div>
+            <div>
               <p>0-lower = {lower}</p>
               <p>1-upper = {upper}</p>
               <p>2-constant = {constant}</p>
               <p>3-exponent = {exponent}</p>
               <p>4-error = {error}</p>
-              <p>n = {n}</p>
-            </div> */}
+              <p>odd sum= {odd_values}</p>
+              <p>even sum= {even_values}</p>
+              <p>end values = {end_values}</p>
+            </div>
             <div className="h-[100vh] overflow-auto px-20 py-5 text-sm">
               <S.SectionSubHeading>Step 1: Find n</S.SectionSubHeading>
               <S.SectionSubText>
@@ -228,6 +240,22 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
                         {"`\\frac{M(b-a)^{5}}{180n^{4}} = `"}
                         <span className="mx-2">{n}</span>
                       </p>
+                      <p>
+                        {"`\\frac{M(b-a)^{5}}{180n^{4}}\\approx`"}
+                        <span className="mx-2">{n[1]}</span>
+                      </p>
+                    </MathJax>
+                  }
+                </MathJaxContext>
+              </S.SectionSubFormula>
+              <S.SectionSubText>
+                {n[1] % 2 !== 0 && "Since n must be even in Simpson's rule,"}
+              </S.SectionSubText>
+              <S.SectionSubFormula>
+                <MathJaxContext config={config}>
+                  {
+                    <MathJax className="font-semibold">
+                      {n[1] % 2 !== 0 && "Let n = " + n[2]}
                     </MathJax>
                   }
                 </MathJaxContext>
@@ -237,8 +265,11 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
               <S.SectionSubFormula>
                 <MathJaxContext config={config}>
                   {
-                    <MathJax>
-                      <p>{"`\\trianglex=\\frac{b-a}{n}=`"}</p>
+                    <MathJax className="font-semibold">
+                      <p>
+                        {"`\\trianglex=\\frac{b-a}{n}=`"}
+                        <span className="mx-2">{delta}</span>
+                      </p>
                     </MathJax>
                   }
                 </MathJaxContext>
@@ -247,7 +278,7 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
               <S.SectionSubFormula>
                 <MathJaxContext config={config}>
                   {
-                    <MathJax>
+                    <MathJax className="font-semibold">
                       <p>
                         {
                           "`int_{a}^{b} f(x)dxapprox\\frac{h}{3}[y_{0}+y_{n}+4sum_1^\\frac{n}{2}y_{2i-1}+2sum_1^left(\\frac{n}{2}-1\\right) y_{2i}]`"
@@ -260,8 +291,14 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
               <S.SectionSubFormula>
                 <MathJaxContext config={config}>
                   {
-                    <MathJax className="my-5">
-                      <p>{"`int_{a}^{b} f(x)dxapprox[+++]`"}</p>
+                    <MathJax className="my-5 font-semibold">
+                      <p>
+                        {"`int_{a}^{b} f(x)dxapprox`"}
+                        <span className="mx-2">
+                          {delta}/3 [{end_values[0]} + {end_values[1]} +{" "}
+                          {odd_values} + {even_values}]
+                        </span>
+                      </p>
                     </MathJax>
                   }
                 </MathJaxContext>
@@ -269,8 +306,11 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
               <S.SectionSubFormula>
                 <MathJaxContext config={config}>
                   {
-                    <MathJax>
-                      <p>{"`approx`"}</p>
+                    <MathJax className="font-semibold">
+                      <p>
+                        {"`int_{a}^{b} f(x)dxapprox`"}
+                        <span className="mx-2">{answer}</span>
+                      </p>
                     </MathJax>
                   }
                 </MathJaxContext>
@@ -279,7 +319,7 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
               <S.SectionSubFormula>
                 <MathJaxContext config={config}>
                   {
-                    <MathJax>
+                    <MathJax className="font-semibold">
                       <p>
                         {"`|int_{a}^{b} f(x)dx-S_{n}|\\leq`"}
                         <span className="mx-2">{error}</span>
@@ -291,7 +331,7 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
               <S.SectionSubFormula>
                 <MathJaxContext config={config}>
                   {
-                    <MathJax>
+                    <MathJax className="font-semibold">
                       <p>
                         |a-b|{"`\\leq`"}
                         <span className="mx-2">{error}</span>
