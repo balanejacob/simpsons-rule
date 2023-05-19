@@ -5,6 +5,7 @@ type FormulaContainerPropsType = {
   onExponentChange: (event: any) => void;
   hasConstantValue: boolean;
   hasExponentValue: boolean;
+  isActive: boolean;
 };
 
 export default function FormulaContainer(
@@ -15,10 +16,15 @@ export default function FormulaContainer(
     onExponentChange,
     hasConstantValue,
     hasExponentValue,
+    isActive,
   } = props;
 
   return (
-    <div className="h-2/5 w-full items-center font-noto italic text-xl gap-x-2 flex ">
+    <div
+      className={` w-full items-center font-noto italic text-xl gap-x-2 ${
+        isActive ? "h-2/5 flex" : " h-0 hidden"
+      }`}
+    >
       <img
         src={integral}
         alt="integral-icon"
