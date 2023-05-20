@@ -36,12 +36,41 @@ export default function IntroductionPanel(props: IntroductionPanelPropsType) {
             <div className="flex justify-center">
               <MathJaxContext config={config}>
                 {
-                  <MathJax>
-                    {
-                      "`int_{a}^{b} f(x)dxapprox\\frac{h}{3}[y_{0}+y_{n}+4sum_1^\\frac{n}{2}y_{2i-1}+2sum_1^left(\\frac{n}{2}-1\\right) y_{2i}]`"
-                    }
+                  <MathJax className="flex justify-center">
+                    <p>
+                      {
+                        "`int_{a}^{b} f(x)dxapprox\\frac{h}{3}[y_{0}+y_{n}+4sum_1^\\frac{n}{2}y_{2i-1}+2sum_1^left(\\frac{n}{2}-1\\right) y_{2i}]`"
+                      }
+                    </p>
                   </MathJax>
                 }
+              </MathJaxContext>
+            </div>
+            <p>
+              In Simpson's 1/3 rule, delta x or h is the width of each
+              subinterval. It is calculated by dividing the interval of
+              integration, [a,b], by the number of subintervals, n. The formula
+              for delta x is:
+            </p>
+            <div className="flex justify-center">
+              <MathJaxContext config={config}>
+                {
+                  <MathJax className="font-semibold">
+                    <p>{"`\\trianglex=\\frac{b-a}{n}`"}</p>
+                  </MathJax>
+                }
+              </MathJaxContext>
+            </div>
+            <p>
+              To be able to solve for delta x, you first need to solve for n if
+              not given. You first need to find the fourth derivative of the
+              given f(x) and then substitute x with the lower bound and upper
+              bound values. The derivative that has the largest value will be
+              used as M. The formula to find n is:
+            </p>
+            <div className="flex justify-center">
+              <MathJaxContext config={config}>
+                {<MathJax>{"`Err \\leq\\frac{M(b-a)^{5}}{180n^{4}}`"}</MathJax>}
               </MathJaxContext>
             </div>
             <p>

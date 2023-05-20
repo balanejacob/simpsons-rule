@@ -43,7 +43,11 @@ export default function ConclusionPanel(props: ConclusionPanelPropsType) {
             </p>
             <div className="flex justify-center">
               <MathJaxContext config={config}>
-                {<MathJax>{"`frac{b - a}{n}`"}</MathJax>}
+                {
+                  <MathJax>
+                    <p>{"`\\trianglex=\\frac{b-a}{n}`"}</p>
+                  </MathJax>
+                }
               </MathJaxContext>
             </div>
             <p>

@@ -18,7 +18,6 @@ export default function App(): JSX.Element {
 
   const [isUpperbound, setUpperbound] = useState<number[]>([0, 0, 0, 0]);
   const [isLowerbound, setLowerbound] = useState<number[]>([0, 0, 0, 0]);
-
   const [isMax, setMax] = useState<number>(0);
   const [isNumber, setNumber] = useState<number[]>([0, 0, 0]);
   const [isDelta, setDelta] = useState<number>(0);
