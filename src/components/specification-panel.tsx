@@ -21,7 +21,7 @@ export default function SpecificationPanel(props: SpecificationPanelPropsType) {
               <p className="font-semibold mb-5 font-montserrat">Features :</p>
               <div className="w-full">
                 <SpecificationItem
-                  label="When Program button is clicked, Simpson's calculator will appear."
+                  label="When the Program button is clicked, Simpson's calculator will appear."
                   section="feature"
                 />
                 <SpecificationItem
@@ -33,11 +33,15 @@ export default function SpecificationPanel(props: SpecificationPanelPropsType) {
                   section="feature"
                 />
                 <SpecificationItem
-                  label="Calculate button will show when all inputs in calculator already has accepted values."
+                  label="Calculate button will show when all inputs in the calculator already have accepted values."
                   section="feature"
                 />
                 <SpecificationItem
-                  label="Calculator can show the solution on solving Simpson's rule."
+                  label="Calculator can show the solution to solving Simpson's rule."
+                  section="feature"
+                />
+                <SpecificationItem
+                  label="Calculator inputs will only accept numbers."
                   section="feature"
                 />
               </div>
