@@ -12,10 +12,14 @@ type ProgramPanelPropsType = {
   max: number;
   n: number[];
   delta: number;
-  odd_values: number;
-  even_values: number;
+  odd_values: number[];
+  even_values: number[];
   end_values: number[];
   answer: number;
+  test_arr: number[];
+  odd_sum: number;
+  even_sum: number;
+  left_side: number;
 };
 export default function ProgramPanel(props: ProgramPanelPropsType) {
   const {
@@ -32,6 +36,10 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
     even_values,
     end_values,
     answer,
+    test_arr,
+    odd_sum,
+    even_sum,
+    left_side,
   } = props;
 
   const lower = values[0];
@@ -62,16 +70,6 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
             <S.SectionHeading className=" h-[10vh] mt-7">
               <p className="font-semibold">Solution :</p>
             </S.SectionHeading>
-            <div>
-              <p>0-lower = {lower}</p>
-              <p>1-upper = {upper}</p>
-              <p>2-constant = {constant}</p>
-              <p>3-exponent = {exponent}</p>
-              <p>4-error = {error}</p>
-              <p>odd sum= {odd_values}</p>
-              <p>even sum= {even_values}</p>
-              <p>end values = {end_values}</p>
-            </div>
             <div className="h-[100vh] overflow-auto px-20 py-5 text-sm">
               <S.SectionSubHeading>Step 1: Find n</S.SectionSubHeading>
               <S.SectionSubText>
@@ -295,14 +293,15 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
                       <p>
                         {"`int_{a}^{b} f(x)dxapprox`"}
                         <span className="mx-2">
-                          {delta}/3 [{end_values[0]} + {end_values[1]} +{" "}
-                          {odd_values} + {even_values}]
+                          {left_side} [{end_values[0]} + {end_values[1]} +{" "}
+                          {odd_sum} + {even_sum}]
                         </span>
                       </p>
                     </MathJax>
                   }
                 </MathJaxContext>
               </S.SectionSubFormula>
+              <S.SectionSubText>The answer is,</S.SectionSubText>
               <S.SectionSubFormula>
                 <MathJaxContext config={config}>
                   {
@@ -310,31 +309,6 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
                       <p>
                         {"`int_{a}^{b} f(x)dxapprox`"}
                         <span className="mx-2">{answer}</span>
-                      </p>
-                    </MathJax>
-                  }
-                </MathJaxContext>
-              </S.SectionSubFormula>
-              <S.SectionSubText>Find Error,</S.SectionSubText>
-              <S.SectionSubFormula>
-                <MathJaxContext config={config}>
-                  {
-                    <MathJax className="font-semibold">
-                      <p>
-                        {"`|int_{a}^{b} f(x)dx-S_{n}|\\leq`"}
-                        <span className="mx-2">{error}</span>
-                      </p>
-                    </MathJax>
-                  }
-                </MathJaxContext>
-              </S.SectionSubFormula>
-              <S.SectionSubFormula>
-                <MathJaxContext config={config}>
-                  {
-                    <MathJax className="font-semibold">
-                      <p>
-                        |a-b|{"`\\leq`"}
-                        <span className="mx-2">{error}</span>
                       </p>
                     </MathJax>
                   }

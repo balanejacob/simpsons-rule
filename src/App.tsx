@@ -23,9 +23,14 @@ export default function App(): JSX.Element {
   const [isNumber, setNumber] = useState<number[]>([0, 0, 0]);
   const [isDelta, setDelta] = useState<number>(0);
   const [isEndValues, setEndValues] = useState<number[]>([]);
-  const [isOddValue, setOddValue] = useState<number>(0);
-  const [isEvenValue, setEvenValue] = useState<number>(0);
+  const [isOddValues, setOddValues] = useState<number[]>([]);
+  const [isEvenValues, setEvenValues] = useState<number[]>([]);
+  const [isTest, setTest] = useState<number[]>([0]);
+  const [isInitial, setInitial] = useState<number[]>([0]);
   const [isAnswer, setAnswer] = useState<number>(0);
+  const [isOddSum, setOddSum] = useState<number>(0);
+  const [isEvenSum, setEvenSum] = useState<number>(0);
+  const [isLeftSide, setLeftSide] = useState<number>(0);
 
   const handlePanelToggle = (value: string): void => {
     setPanelToggle(value);
@@ -101,12 +106,16 @@ export default function App(): JSX.Element {
 
   function findInitialValues() {
     let num = isValue[0];
-    let init_array = [];
     let max = isNumber[2];
     let delta = isDelta;
-    let ends = [isValue[0], isValue[1]];
+    let init_array = [];
+    let ends = [];
     let oddArr = [];
     let evenArr = [];
+    let lower = isValue[0];
+    let upper = isValue[1];
+    let constant = isValue[2];
+    let exponent = isValue[3];
     let total = 0;
 
     for (let n = 0; n < max - 1; n++) {
@@ -114,40 +123,132 @@ export default function App(): JSX.Element {
       init_array.push(num);
     }
 
-    for (let n = 0; n < max - 1; n++) {
-      if (n % 2 !== 0) evenArr.push(init_array[n]);
-      else oddArr.push(init_array[n]);
+    for (let n = 0; n < init_array.length; n++) {
+      if (n % 2 === 0) {
+        oddArr.push(init_array[n]);
+      } else {
+        evenArr.push(init_array[n]);
+      }
     }
+    setInitial(init_array);
+    setTest(init_array);
 
-    for (let n = 0; n < oddArr.length; n++) {
-      oddArr[n] *= 4;
+    // total = constant * Math.pow(lower, exponent);
+    // ends.push(total);
+
+    // total = constant * Math.pow(upper, exponent);
+    // ends.push(total);
+
+    // setEndValues(ends);
+  }
+
+  function DivideArray() {
+    let num = isValue[0];
+    let max = isNumber[2];
+    let delta = isDelta;
+    let init_array = isInitial;
+    let ends = [];
+    let oddArr = [];
+    let evenArr = [];
+    let lower = isValue[0];
+    let upper = isValue[1];
+    let constant = isValue[2];
+    let exponent = isValue[3];
+    let total = 0;
+
+    for (let n = 0; n < init_array.length; n++) {
+      if (n % 2 === 0) {
+        oddArr.push(init_array[n]);
+      } else {
+        evenArr.push(init_array[n]);
+      }
     }
+    ends.push(lower);
+    ends.push(upper);
 
-    for (let n = 0; n < evenArr.length; n++) {
-      evenArr[n] *= 2;
-    }
-
-    for (let n = 0; n < oddArr.length; n++) {
-      total += oddArr[n];
-    }
-
-    setOddValue(total);
-
-    total = 0;
-
-    for (let n = 0; n < evenArr.length; n++) {
-      total += evenArr[n];
-    }
-
-    setEvenValue(total);
+    setOddValues(oddArr);
+    setEvenValues(evenArr);
     setEndValues(ends);
   }
 
+  function findOddArray() {
+    let num = isValue[0];
+    let max = isNumber[2];
+    let delta = isDelta;
+    let odd_array = [];
+    let even_array = [];
+    let ends = [];
+    let lower = isValue[0];
+    let upper = isValue[1];
+    let constant = isValue[2];
+    let exponent = isValue[3];
+    let left_side = 0;
+    let n;
+
+    for (n = 0; n < isOddValues.length; n++) {
+      odd_array.push(4 * constant * Math.pow(isOddValues[n], exponent));
+    }
+
+    for (n = 0; n < isEvenValues.length; n++) {
+      even_array.push(2 * (constant * Math.pow(isEvenValues[n], exponent)));
+    }
+
+    left_side = (delta * (upper - lower)) / 3;
+    setOddValues(odd_array);
+    setEvenValues(even_array);
+    setLeftSide(left_side);
+  }
+
+  function findSums() {
+    let num = isValue[0];
+    let max = isNumber[2];
+    let delta = isDelta;
+    let odd_array = [];
+    let even_array = [];
+    let ends = [];
+    let lower = isValue[0];
+    let upper = isValue[1];
+    let constant = isValue[2];
+    let exponent = isValue[3];
+    let left_side = 0;
+    let n;
+    let total_odd = 0;
+    let total_even = 0;
+    let set_odd = isOddValues;
+    let set_even = isEvenValues;
+
+    for (n = 0; n < set_odd.length; n++) {
+      total_odd += set_odd[n];
+    }
+
+    for (n = 0; n < set_even.length; n++) {
+      total_even += set_even[n];
+      console.log(set_odd[n]);
+    }
+
+    setOddSum(total_odd);
+    setEvenSum(total_even);
+  }
+
   function findAnswer() {
-    setAnswer(
-      (isDelta / 3) *
-        (isEndValues[0] + isEndValues[1] + isOddValue + isEvenValue)
-    );
+    let left = isLeftSide;
+    let odd_sum = isOddSum;
+    let even_sum = isEvenSum;
+    let x0 = isEndValues[0];
+    let xn = isEndValues[1];
+    let total = 0;
+
+    let lower = isValue[0];
+    let upper = isValue[1];
+    let constant = isValue[2];
+    let exponent = isValue[3];
+
+    x0 = constant * Math.pow(x0, exponent);
+    xn = constant * Math.pow(xn, exponent);
+
+    total = left * (x0 + xn + odd_sum + even_sum);
+
+    setAnswer(total);
   }
 
   useEffect(() => {
@@ -157,23 +258,35 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     setMax(Math.max(...isUpperbound, ...isLowerbound));
-  }, [isLowerbound]);
+  }, [isLowerbound, isValue]);
 
   useEffect(() => {
     findN();
-  }, [isMax, isValue]);
+  }, [isMax, isValue, isValue]);
 
   useEffect(() => {
     findDelta();
-  }, [isNumber]);
+  }, [isNumber, isValue]);
 
   useEffect(() => {
     findInitialValues();
   }, [isDelta, isValue]);
 
   useEffect(() => {
+    DivideArray();
+  }, [isInitial]);
+
+  useEffect(() => {
+    findOddArray();
+  }, [isEndValues]);
+
+  useEffect(() => {
+    findSums();
+  }, [isEvenValues, isOddValues]);
+
+  useEffect(() => {
     findAnswer();
-  }, [isEndValues, isEvenValue, isOddValue]);
+  }, [isEvenSum, isOddSum, isLeftSide]);
 
   return (
     <S.App>
@@ -192,10 +305,14 @@ export default function App(): JSX.Element {
         max={isMax}
         n={isNumber}
         delta={isDelta}
-        odd_values={isOddValue}
-        even_values={isEvenValue}
+        odd_values={isOddValues}
+        even_values={isEvenValues}
         end_values={isEndValues}
         answer={isAnswer}
+        test_arr={isTest}
+        left_side={isLeftSide}
+        odd_sum={isOddSum}
+        even_sum={isEvenSum}
       />
     </S.App>
   );

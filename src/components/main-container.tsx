@@ -16,10 +16,14 @@ type MainContainerPropsType = {
   max: number;
   n: number[];
   delta: number;
-  odd_values: number;
-  even_values: number;
+  odd_values: number[];
+  even_values: number[];
   end_values: number[];
   answer: number;
+  test_arr: number[];
+  odd_sum: number;
+  even_sum: number;
+  left_side: number;
 };
 
 export default function MainContainer(props: MainContainerPropsType) {
@@ -37,6 +41,10 @@ export default function MainContainer(props: MainContainerPropsType) {
     even_values,
     end_values,
     answer,
+    test_arr,
+    odd_sum,
+    even_sum,
+    left_side,
   } = props;
   return (
     <S.RightContainer>
@@ -55,6 +63,10 @@ export default function MainContainer(props: MainContainerPropsType) {
         even_values={even_values}
         end_values={end_values}
         answer={answer}
+        test_arr={test_arr}
+        odd_sum={odd_sum}
+        even_sum={even_sum}
+        left_side={left_side}
       />
       <SpecificationPanel isActive={isActive === "3"} />
       <ConclusionPanel isActive={isActive === "4"} />
