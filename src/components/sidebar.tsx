@@ -31,7 +31,12 @@ export default function Sidebar(props: SidebarPropsType) {
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+    if (
+      event.target.value === "" ||
+      isNaN(Number(event.target.value)) ||
+      Number(event.target.value) > 10 ||
+      Number(event.target.value) < -10
+    ) {
       setUpperBound(false);
     } else {
       setUpperBound(true);
@@ -43,7 +48,12 @@ export default function Sidebar(props: SidebarPropsType) {
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+    if (
+      event.target.value === "" ||
+      isNaN(Number(event.target.value)) ||
+      Number(event.target.value) > 10 ||
+      Number(event.target.value) < -10
+    ) {
       setLowerBound(false);
     } else {
       setLowerBound(true);
@@ -55,7 +65,12 @@ export default function Sidebar(props: SidebarPropsType) {
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+    if (
+      event.target.value === "" ||
+      isNaN(Number(event.target.value)) ||
+      Number(event.target.value) > 99 ||
+      Number(event.target.value) < -99
+    ) {
       setConstant(false);
     } else {
       setConstant(true);
@@ -67,7 +82,12 @@ export default function Sidebar(props: SidebarPropsType) {
     event: React.ChangeEvent<HTMLInputElement>
   ): void {
     event.preventDefault();
-    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+    if (
+      event.target.value === "" ||
+      isNaN(Number(event.target.value)) ||
+      Number(event.target.value) > 9 ||
+      Number(event.target.value) < 0
+    ) {
       setExponent(false);
     } else {
       setExponent(true);
@@ -77,7 +97,12 @@ export default function Sidebar(props: SidebarPropsType) {
 
   function handleErrorChange(event: React.ChangeEvent<HTMLInputElement>): void {
     event.preventDefault();
-    if (event.target.value === "" || isNaN(Number(event.target.value))) {
+    if (
+      event.target.value === "" ||
+      isNaN(Number(event.target.value)) ||
+      Number(event.target.value) >= 1 ||
+      Number(event.target.value) <= 0
+    ) {
       setError(false);
     } else {
       setError(true);

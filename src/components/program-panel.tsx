@@ -32,11 +32,8 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
     max,
     n,
     delta,
-    odd_values,
-    even_values,
     end_values,
     answer,
-    test_arr,
     odd_sum,
     even_sum,
     left_side,
@@ -44,9 +41,6 @@ export default function ProgramPanel(props: ProgramPanelPropsType) {
 
   const lower = values[0];
   const upper = values[1];
-  const constant = values[2];
-  const exponent = values[3];
-  const error = values[4];
 
   const config = {
     loader: { load: ["input/asciimath"] },

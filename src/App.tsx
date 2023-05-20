@@ -109,14 +109,8 @@ export default function App(): JSX.Element {
     let max = isNumber[2];
     let delta = isDelta;
     let init_array = [];
-    let ends = [];
     let oddArr = [];
     let evenArr = [];
-    let lower = isValue[0];
-    let upper = isValue[1];
-    let constant = isValue[2];
-    let exponent = isValue[3];
-    let total = 0;
 
     for (let n = 0; n < max - 1; n++) {
       num += delta;
@@ -132,29 +126,15 @@ export default function App(): JSX.Element {
     }
     setInitial(init_array);
     setTest(init_array);
-
-    // total = constant * Math.pow(lower, exponent);
-    // ends.push(total);
-
-    // total = constant * Math.pow(upper, exponent);
-    // ends.push(total);
-
-    // setEndValues(ends);
   }
 
   function DivideArray() {
-    let num = isValue[0];
-    let max = isNumber[2];
-    let delta = isDelta;
     let init_array = isInitial;
     let ends = [];
     let oddArr = [];
     let evenArr = [];
     let lower = isValue[0];
     let upper = isValue[1];
-    let constant = isValue[2];
-    let exponent = isValue[3];
-    let total = 0;
 
     for (let n = 0; n < init_array.length; n++) {
       if (n % 2 === 0) {
@@ -172,12 +152,9 @@ export default function App(): JSX.Element {
   }
 
   function findOddArray() {
-    let num = isValue[0];
-    let max = isNumber[2];
     let delta = isDelta;
     let odd_array = [];
     let even_array = [];
-    let ends = [];
     let lower = isValue[0];
     let upper = isValue[1];
     let constant = isValue[2];
@@ -200,17 +177,6 @@ export default function App(): JSX.Element {
   }
 
   function findSums() {
-    let num = isValue[0];
-    let max = isNumber[2];
-    let delta = isDelta;
-    let odd_array = [];
-    let even_array = [];
-    let ends = [];
-    let lower = isValue[0];
-    let upper = isValue[1];
-    let constant = isValue[2];
-    let exponent = isValue[3];
-    let left_side = 0;
     let n;
     let total_odd = 0;
     let total_even = 0;
@@ -237,9 +203,6 @@ export default function App(): JSX.Element {
     let x0 = isEndValues[0];
     let xn = isEndValues[1];
     let total = 0;
-
-    let lower = isValue[0];
-    let upper = isValue[1];
     let constant = isValue[2];
     let exponent = isValue[3];
 
